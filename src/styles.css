@@ -2,6 +2,8 @@
 @source "../src";
 @import "tw-animate-css";
 
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,500&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
+
 @custom-variant dark (&:is(.dark *));
 
 /*
@@ -62,9 +64,21 @@
 }
 
 :root {
-  --radius: 0.625rem;
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.129 0.042 264.695);
+  --radius: 1.25rem;
+  --background: oklch(0.97 0.025 230);
+  --foreground: oklch(0.28 0.12 290);
+  --bday-sky: oklch(0.92 0.06 230);
+  --bday-sky-deep: oklch(0.82 0.1 235);
+  --bday-pink: oklch(0.78 0.18 0);
+  --bday-pink-soft: oklch(0.9 0.09 350);
+  --bday-purple: oklch(0.55 0.22 295);
+  --bday-purple-soft: oklch(0.78 0.14 295);
+  --bday-cream: oklch(0.98 0.02 80);
+  --gradient-text: linear-gradient(135deg, oklch(0.45 0.24 305), oklch(0.68 0.22 355));
+  --gradient-button: linear-gradient(135deg, oklch(0.78 0.18 350), oklch(0.68 0.2 295));
+  --gradient-sky: radial-gradient(ellipse at top, oklch(0.93 0.06 230), oklch(0.88 0.08 270));
+  --shadow-puffy: 0 6px 0 oklch(0.55 0.22 295 / 0.35), 0 20px 40px oklch(0.55 0.22 295 / 0.25);
+  --shadow-glow: 0 0 60px oklch(0.78 0.18 350 / 0.5);
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.129 0.042 264.695);
   --popover: oklch(1 0 0);
@@ -142,3 +156,53 @@
     color: var(--color-foreground);
   }
 }
+
+@layer utilities {
+  .font-script { font-family: 'Caveat', 'Fraunces', cursive; }
+  .font-display { font-family: 'Fraunces', serif; font-style: italic; }
+  .font-body { font-family: 'Plus Jakarta Sans', sans-serif; }
+
+  .text-gradient-bday {
+    background: var(--gradient-text);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .bg-sky-dream {
+    background: var(--gradient-sky);
+  }
+
+  .btn-bday {
+    background: var(--gradient-button);
+    box-shadow: var(--shadow-puffy);
+  }
+
+  .puffy-text {
+    color: white;
+    text-shadow:
+      0 1px 0 oklch(0.55 0.22 295),
+      0 2px 0 oklch(0.55 0.22 295),
+      0 3px 0 oklch(0.5 0.22 295),
+      0 4px 0 oklch(0.45 0.22 295),
+      0 6px 0 oklch(0.4 0.22 295),
+      0 10px 25px oklch(0.4 0.22 295 / 0.6),
+      0 0 40px oklch(0.78 0.18 350 / 0.4);
+  }
+}
+
+@keyframes float-y {
+  0%, 100% { transform: translateY(0) rotate(var(--r, 0deg)); }
+  50% { transform: translateY(-18px) rotate(var(--r, 0deg)); }
+}
+@keyframes float-slow {
+  0%, 100% { transform: translate(0,0) rotate(0deg); }
+  50% { transform: translate(10px,-15px) rotate(6deg); }
+}
+@keyframes drift {
+  0% { transform: translateY(100vh) translateX(0); opacity: 0; }
+  10% { opacity: 1; }
+  100% { transform: translateY(-10vh) translateX(40px); opacity: 0; }
+}
+.animate-float-y { animation: float-y 6s ease-in-out infinite; }
+.animate-float-slow { animation: float-slow 8s ease-in-out infinite; }
