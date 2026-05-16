@@ -1,0 +1,261 @@
+import { useEffect, useState } from "react";
+import { motion, AnimatePresence } from "motion/react";
+import { ArrowRight, Heart, Sparkles, Star } from "lucide-react";
+import img1 from "@/assets/bday-1.jpg";
+import img2 from "@/assets/bday-2.jpg";
+import img3 from "@/assets/bday-3.jpg";
+import img4 from "@/assets/bday-4.jpg";
+import img5 from "@/assets/bday-5.jpg";
+
+const images = [img1, img2, img3, img4, img5];
+
+const Decoration = ({
+  className,
+  delay = 0,
+  rotate = 0,
+  children,
+}: {
+  className?: string;
+  delay?: number;
+  rotate?: number;
+  children: React.ReactNode;
+}) => (
+  <div
+    className={`absolute pointer-events-none animate-float-y ${className ?? ""}`}
+    style={{ animationDelay: `${delay}s`, ["--r" as never]: `${rotate}deg` }}
+  >
+    {children}
+  </div>
+);
+
+const Confetti = () => {
+  const bits = Array.from({ length: 18 });
+  return (
+    <div className="absolute inset-0 overflow-hidden pointer-events-none">
+      {bits.map((_, i) => {
+        const colors = [
+          "oklch(0.78 0.18 350)",
+          "oklch(0.68 0.2 295)",
+          "oklch(0.85 0.12 80)",
+          "oklch(0.82 0.1 235)",
+        ];
+        const left = (i * 53) % 100;
+        const size = 6 + ((i * 7) % 10);
+        const dur = 8 + ((i * 3) % 9);
+        const delay = (i * 0.7) % 6;
+        return (
+          <span
+            key={i}
+            className="absolute rounded-sm"
+            style={{
+              left: `${left}%`,
+              bottom: `-10px`,
+              width: size,
+              height: size,
+              background: colors[i % colors.length],
+              animation: `drift ${dur}s linear ${delay}s infinite`,
+              borderRadius: i % 2 ? "9999px" : "2px",
+              opacity: 0.7,
+            }}
+          />
+        );
+      })}
+    </div>
+  );
+};
+
+export default function BirthdayHero() {
+  const [idx, setIdx] = useState(0);
+
+  useEffect(() => {
+    const t = setInterval(() => setIdx((i) => (i + 1) % images.length), 3800);
+    return () => clearInterval(t);
+  }, []);
+
+  return (
+    <section className="relative min-h-screen w-full overflow-hidden bg-sky-dream font-body">
+      {/* abstract blobs */}
+      <div className="absolute -top-32 -left-32 h-[28rem] w-[28rem] rounded-full bg-[oklch(0.85_0.12_350/0.5)] blur-3xl" />
+      <div className="absolute top-1/3 -right-40 h-[30rem] w-[30rem] rounded-full bg-[oklch(0.78_0.14_295/0.45)] blur-3xl" />
+      <div className="absolute bottom-0 left-1/3 h-72 w-72 rounded-full bg-[oklch(0.9_0.09_80/0.5)] blur-3xl" />
+
+      <Confetti />
+
+      {/* hanging decorations */}
+      <Decoration className="top-0 left-[8%]" delay={0} rotate={-8}>
+        <div className="w-px h-24 bg-[oklch(0.7_0.1_280/0.4)] mx-auto" />
+        <Heart className="w-10 h-10 -mt-1 fill-[oklch(0.85_0.12_350)] text-[oklch(0.85_0.12_350)] drop-shadow-lg" />
+      </Decoration>
+      <Decoration className="top-0 left-[28%]" delay={1.2} rotate={6}>
+        <div className="w-px h-36 bg-[oklch(0.7_0.1_280/0.4)] mx-auto" />
+        <Star className="w-12 h-12 -mt-1 fill-[oklch(0.55_0.22_295)] text-[oklch(0.55_0.22_295)] drop-shadow-lg" />
+      </Decoration>
+      <Decoration className="top-0 right-[12%]" delay={0.6} rotate={-12}>
+        <div className="w-px h-28 bg-[oklch(0.7_0.1_280/0.4)] mx-auto" />
+        <Star className="w-11 h-11 -mt-1 fill-[oklch(0.68_0.2_295)] text-[oklch(0.68_0.2_295)] drop-shadow-lg" />
+      </Decoration>
+      <Decoration className="bottom-10 left-[5%]" delay={2} rotate={15}>
+        <Heart className="w-9 h-9 fill-white text-white drop-shadow-xl" />
+      </Decoration>
+      <Decoration className="bottom-24 right-[6%]" delay={1.5} rotate={-20}>
+        <Sparkles className="w-12 h-12 text-[oklch(0.78_0.18_350)] drop-shadow-lg" />
+      </Decoration>
+
+      {/* nav */}
+      <nav className="relative z-20 flex items-center justify-between px-6 md:px-14 py-6">
+        <div className="flex items-center gap-2 text-[oklch(0.45_0.24_305)] font-script text-2xl">
+          <Sparkles className="w-5 h-5" />
+          twin.day
+        </div>
+        <div className="hidden md:flex items-center gap-8 text-sm font-medium text-[oklch(0.4_0.15_290)]">
+          <a className="hover:text-[oklch(0.55_0.22_295)] transition">HOME</a>
+          <a className="hover:text-[oklch(0.55_0.22_295)] transition">PHOTOS</a>
+          <a className="hover:text-[oklch(0.55_0.22_295)] transition">WISHES</a>
+          <a className="hover:text-[oklch(0.55_0.22_295)] transition">CAKE</a>
+        </div>
+      </nav>
+
+      {/* content */}
+      <div className="relative z-10 grid lg:grid-cols-2 gap-12 lg:gap-8 items-center px-6 md:px-14 pb-20 pt-6">
+        {/* LEFT — slider */}
+        <motion.div
+          initial={{ opacity: 0, x: -30 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.9, ease: "easeOut" }}
+          className="relative mx-auto w-full max-w-[460px]"
+        >
+          {/* layered cards behind */}
+          <div className="absolute -inset-4 rounded-[2.5rem] bg-white/40 backdrop-blur-xl rotate-[-6deg] shadow-2xl" />
+          <div className="absolute -inset-2 rounded-[2.25rem] bg-white/60 backdrop-blur-xl rotate-[3deg] shadow-xl" />
+
+          <div className="relative aspect-[4/5] rounded-[2rem] overflow-hidden shadow-2xl ring-1 ring-white/60 animate-float-slow">
+            <AnimatePresence mode="wait">
+              <motion.img
+                key={idx}
+                src={images[idx]}
+                alt="Birthday memory"
+                width={768}
+                height={960}
+                initial={{ opacity: 0, scale: 1.1, filter: "blur(20px)" }}
+                animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
+                exit={{ opacity: 0, scale: 0.95, filter: "blur(15px)" }}
+                transition={{ duration: 1.1, ease: [0.4, 0, 0.2, 1] }}
+                className="absolute inset-0 w-full h-full object-cover"
+              />
+            </AnimatePresence>
+            <div className="absolute inset-0 bg-gradient-to-t from-[oklch(0.55_0.22_295/0.3)] via-transparent to-transparent" />
+
+            {/* glass label */}
+            <div className="absolute bottom-4 left-4 right-4 backdrop-blur-md bg-white/30 border border-white/50 rounded-2xl px-4 py-3 flex items-center justify-between">
+              <span className="font-script text-xl text-white drop-shadow">
+                memory {String(idx + 1).padStart(2, "0")}
+              </span>
+              <div className="flex gap-1.5">
+                {images.map((_, i) => (
+                  <button
+                    key={i}
+                    onClick={() => setIdx(i)}
+                    className={`h-1.5 rounded-full transition-all ${
+                      i === idx ? "w-6 bg-white" : "w-1.5 bg-white/50"
+                    }`}
+                  />
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* floating mini cards */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.6 }}
+            className="absolute -bottom-6 -left-6 backdrop-blur-xl bg-white/60 border border-white/70 rounded-2xl px-4 py-3 shadow-xl animate-float-y"
+            style={{ animationDelay: "1s" }}
+          >
+            <div className="flex items-center gap-2">
+              <div className="w-9 h-9 rounded-full bg-gradient-to-br from-[oklch(0.78_0.18_350)] to-[oklch(0.68_0.2_295)] flex items-center justify-center">
+                <Heart className="w-4 h-4 text-white fill-white" />
+              </div>
+              <div>
+                <p className="text-[10px] uppercase tracking-wider text-[oklch(0.5_0.1_290)]">forever</p>
+                <p className="text-sm font-semibold text-[oklch(0.35_0.18_295)]">twin energy</p>
+              </div>
+            </div>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.8 }}
+            className="absolute -top-4 -right-4 backdrop-blur-xl bg-white/60 border border-white/70 rounded-full px-4 py-2 shadow-xl flex items-center gap-2 animate-float-y"
+            style={{ animationDelay: "2s" }}
+          >
+            <Sparkles className="w-4 h-4 text-[oklch(0.55_0.22_295)]" />
+            <span className="text-xs font-semibold text-[oklch(0.35_0.18_295)]">100% baddie</span>
+          </motion.div>
+        </motion.div>
+
+        {/* RIGHT — content */}
+        <div className="relative text-center lg:text-left">
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2 }}
+            className="font-display italic text-[oklch(0.55_0.22_295)] tracking-[0.3em] text-xs md:text-sm mb-3"
+          >
+            ✦ HAPPY BIRTHDAY ✦
+          </motion.p>
+
+          <motion.h1
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 0.3, type: "spring", stiffness: 80 }}
+            className="puffy-text font-black text-6xl md:text-7xl lg:text-8xl leading-[0.9] tracking-tight"
+          >
+            TWIN<span className="inline-block animate-float-y" style={{ ["--r" as never]: "8deg" }}>!</span>
+          </motion.h1>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.6 }}
+            className="mt-8 font-display text-lg md:text-xl leading-relaxed text-gradient-bday max-w-xl mx-auto lg:mx-0"
+          >
+            <p className="mb-4">
+              yeh hai hamari priye mittar <br />
+              <span className="font-script not-italic text-3xl md:text-4xl">baddie Nandini Singh</span>
+            </p>
+            <p className="text-base md:text-lg opacity-90 mb-4">
+              inke slay karne ka andaaz hi kuch alag hai — ye bas hasti hai,
+              hasti hai aur sirf hasti hai, aur khush rehti hai.
+            </p>
+            <p className="text-base md:text-lg opacity-90 mb-4">
+              ye to ho gaya <em>miss baddie</em> ka chota sa intro ✨
+            </p>
+            <p className="text-base md:text-lg opacity-90">
+              aaj hum sab ki pyaari baddie jii ka birthday hai —
+              dekhte hai aage kya kya milta hai... <span className="text-2xl">😁</span>
+            </p>
+          </motion.div>
+
+          {/* CTA */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 1 }}
+            className="mt-10 flex justify-center lg:justify-start"
+          >
+            <button className="group relative btn-bday text-white font-semibold px-8 py-4 rounded-full flex items-center gap-3 transition-all duration-300 hover:scale-105 hover:-translate-y-1 hover:shadow-[0_15px_40px_oklch(0.55_0.22_295/0.5)]">
+              <span className="absolute inset-0 rounded-full bg-white/20 opacity-0 group-hover:opacity-100 transition" />
+              <span className="relative tracking-wide">START JOURNEY</span>
+              <span className="relative w-9 h-9 rounded-full bg-white/25 backdrop-blur flex items-center justify-center group-hover:translate-x-1 transition-transform">
+                <ArrowRight className="w-4 h-4" />
+              </span>
+              <Sparkles className="absolute -top-2 -right-2 w-5 h-5 text-[oklch(0.95_0.05_80)] opacity-0 group-hover:opacity-100 transition animate-pulse" />
+            </button>
+          </motion.div>
+        </div>
+      </div>
+    </section>
+  );
+}
