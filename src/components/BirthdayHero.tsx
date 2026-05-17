@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
+import { Link } from "@tanstack/react-router";
 import { ArrowRight, Heart, Sparkles, Star } from "lucide-react";
 import img1 from "@/assets/new-1.jpg";
 import img2 from "@/assets/new-1-wings.jpg";
