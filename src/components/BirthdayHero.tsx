@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
+import { Link } from "@tanstack/react-router";
 import { ArrowRight, Heart, Sparkles, Star } from "lucide-react";
 import img1 from "@/assets/new-1.jpg";
 import img2 from "@/assets/new-1-wings.jpg";
@@ -215,14 +216,14 @@ export default function BirthdayHero() {
             transition={{ delay: 1 }}
             className="mt-10 flex justify-center lg:justify-start"
           >
-            <button className="group relative btn-bday text-white font-semibold px-8 py-4 rounded-full flex items-center gap-3 transition-all duration-300 hover:scale-105 hover:-translate-y-1 hover:shadow-[0_15px_40px_oklch(0.55_0.22_295/0.5)]">
+            <Link to="/journey" preload="intent" className="group relative btn-bday text-white font-semibold px-8 py-4 rounded-full flex items-center gap-3 transition-all duration-300 hover:scale-105 hover:-translate-y-1 hover:shadow-[0_15px_40px_oklch(0.55_0.22_295/0.5)]">
               <span className="absolute inset-0 rounded-full bg-white/20 opacity-0 group-hover:opacity-100 transition" />
               <span className="relative tracking-wide">START JOURNEY</span>
               <span className="relative w-9 h-9 rounded-full bg-white/25 backdrop-blur flex items-center justify-center group-hover:translate-x-1 transition-transform">
                 <ArrowRight className="w-4 h-4" />
               </span>
               <Sparkles className="absolute -top-2 -right-2 w-5 h-5 text-[oklch(0.95_0.05_80)] opacity-0 group-hover:opacity-100 transition animate-pulse" />
-            </button>
+            </Link>
           </motion.div>
         </div>
       </div>

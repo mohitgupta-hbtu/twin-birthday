@@ -4,9 +4,11 @@ import {
   Link,
   createRootRouteWithContext,
   useRouter,
+  useRouterState,
   HeadContent,
   Scripts,
 } from "@tanstack/react-router";
+import { AnimatePresence, motion } from "motion/react";
 
 import appCss from "../styles.css?url";
 
@@ -113,7 +115,24 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <Outlet />
+      <AnimatedOutlet />
     </QueryClientProvider>
+  );
+}
+
+function AnimatedOutlet() {
+  const pathname = useRouterState({ select: (s) => s.location.pathname });
+  return (
+    <AnimatePresence mode="wait" initial={false}>
+      <motion.div
+        key={pathname}
+        initial={{ opacity: 0, filter: "blur(14px)", scale: 0.985 }}
+        animate={{ opacity: 1, filter: "blur(0px)", scale: 1 }}
+        exit={{ opacity: 0, filter: "blur(10px)", scale: 1.01 }}
+        transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+      >
+        <Outlet />
+      </motion.div>
+    </AnimatePresence>
   );
 }
