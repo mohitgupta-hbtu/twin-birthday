@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { ArrowRight, Heart, Sparkles, Star } from "lucide-react";
 import img1 from "@/assets/new-1.jpg";
-import img2 from "@/assets/new-2.jpg";
-import img3 from "@/assets/new-3.png";
+import img2 from "@/assets/new-1-wings.jpg";
+import img3 from "@/assets/fairy-image.jpeg";
 import img4 from "@/assets/new-4.png";
 
 const images = [img1, img2, img3, img4];
@@ -127,7 +127,7 @@ export default function BirthdayHero() {
           <div className="absolute -inset-4 rounded-[2.5rem] bg-white/40 backdrop-blur-xl rotate-[-6deg] shadow-2xl" />
           <div className="absolute -inset-2 rounded-[2.25rem] bg-white/60 backdrop-blur-xl rotate-[3deg] shadow-xl" />
 
-          <div className="relative aspect-[4/5] rounded-[2rem] overflow-hidden shadow-2xl ring-1 ring-white/60 animate-float-slow">
+          <div className="relative aspect-[4/5] rounded-[2rem] overflow-hidden shadow-2xl ring-1 ring-white/60 animate-float-slow" style={{ background: "linear-gradient(135deg, oklch(0.85 0.12 350), oklch(0.78 0.14 295), oklch(0.82 0.1 270), oklch(0.88 0.08 320))" }}>
             <AnimatePresence mode="wait">
               <motion.img
                 key={idx < images.length ? idx : 0}
@@ -144,43 +144,11 @@ export default function BirthdayHero() {
             </AnimatePresence>
             <div className="absolute inset-0 bg-gradient-to-t from-[oklch(0.55_0.22_295/0.3)] via-transparent to-transparent" />
 
-            {/* glass label */}
-            <div className="absolute bottom-4 left-4 right-4 backdrop-blur-md bg-white/30 border border-white/50 rounded-2xl px-4 py-3 flex items-center justify-between">
-              <span className="font-script text-xl text-white drop-shadow">
-                memory {String((idx < images.length ? idx : 0) + 1).padStart(2, "0")}
-              </span>
-              <div className="flex gap-1.5">
-                {images.map((_, i) => (
-                  <button
-                    key={i}
-                    onClick={() => setIdx(i)}
-                    className={`h-1.5 rounded-full transition-all ${
-                      i === (idx < images.length ? idx : 0) ? "w-6 bg-white" : "w-1.5 bg-white/50"
-                    }`}
-                  />
-                ))}
-              </div>
-            </div>
+
           </div>
 
           {/* floating mini cards */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.6 }}
-            className="absolute -bottom-6 -left-6 backdrop-blur-xl bg-white/60 border border-white/70 rounded-2xl px-4 py-3 shadow-xl animate-float-y"
-            style={{ animationDelay: "1s" }}
-          >
-            <div className="flex items-center gap-2">
-              <div className="w-9 h-9 rounded-full bg-gradient-to-br from-[oklch(0.78_0.18_350)] to-[oklch(0.68_0.2_295)] flex items-center justify-center">
-                <Heart className="w-4 h-4 text-white fill-white" />
-              </div>
-              <div>
-                <p className="text-[10px] uppercase tracking-wider text-[oklch(0.5_0.1_290)]">forever</p>
-                <p className="text-sm font-semibold text-[oklch(0.35_0.18_295)]">twin energy</p>
-              </div>
-            </div>
-          </motion.div>
+
 
           <motion.div
             initial={{ opacity: 0, y: -20 }}
