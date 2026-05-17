@@ -1,13 +1,12 @@
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { ArrowRight, Heart, Sparkles, Star } from "lucide-react";
-import img1 from "@/assets/bday-1.jpg";
-import img2 from "@/assets/bday-2.jpg";
-import img3 from "@/assets/bday-3.jpg";
-import img4 from "@/assets/bday-4.jpg";
-import img5 from "@/assets/bday-5.jpg";
+import img1 from "@/assets/new-1.jpg";
+import img2 from "@/assets/new-2.jpg";
+import img3 from "@/assets/new-3.png";
+import img4 from "@/assets/new-4.png";
 
-const images = [img1, img2, img3, img4, img5];
+const images = [img1, img2, img3, img4];
 
 const Decoration = ({
   className,
@@ -131,8 +130,8 @@ export default function BirthdayHero() {
           <div className="relative aspect-[4/5] rounded-[2rem] overflow-hidden shadow-2xl ring-1 ring-white/60 animate-float-slow">
             <AnimatePresence mode="wait">
               <motion.img
-                key={idx}
-                src={images[idx]}
+                key={idx < images.length ? idx : 0}
+                src={images[idx < images.length ? idx : 0]}
                 alt="Birthday memory"
                 width={768}
                 height={960}
@@ -140,7 +139,7 @@ export default function BirthdayHero() {
                 animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
                 exit={{ opacity: 0, scale: 0.95, filter: "blur(15px)" }}
                 transition={{ duration: 1.1, ease: [0.4, 0, 0.2, 1] }}
-                className="absolute inset-0 w-full h-full object-cover"
+                className="absolute inset-0 w-full h-full object-cover object-top"
               />
             </AnimatePresence>
             <div className="absolute inset-0 bg-gradient-to-t from-[oklch(0.55_0.22_295/0.3)] via-transparent to-transparent" />
@@ -148,7 +147,7 @@ export default function BirthdayHero() {
             {/* glass label */}
             <div className="absolute bottom-4 left-4 right-4 backdrop-blur-md bg-white/30 border border-white/50 rounded-2xl px-4 py-3 flex items-center justify-between">
               <span className="font-script text-xl text-white drop-shadow">
-                memory {String(idx + 1).padStart(2, "0")}
+                memory {String((idx < images.length ? idx : 0) + 1).padStart(2, "0")}
               </span>
               <div className="flex gap-1.5">
                 {images.map((_, i) => (
@@ -156,7 +155,7 @@ export default function BirthdayHero() {
                     key={i}
                     onClick={() => setIdx(i)}
                     className={`h-1.5 rounded-full transition-all ${
-                      i === idx ? "w-6 bg-white" : "w-1.5 bg-white/50"
+                      i === (idx < images.length ? idx : 0) ? "w-6 bg-white" : "w-1.5 bg-white/50"
                     }`}
                   />
                 ))}
@@ -222,19 +221,22 @@ export default function BirthdayHero() {
             className="mt-8 font-display text-lg md:text-xl leading-relaxed text-gradient-bday max-w-xl mx-auto lg:mx-0"
           >
             <p className="mb-4">
-              yeh hai hamari priye mittar <br />
-              <span className="font-script not-italic text-3xl md:text-4xl">baddie Nandini Singh</span>
+              YEH HAI HAMARI PRIYE MITTAR <br />
+              <span className="font-script not-italic text-3xl md:text-4xl">BADDIE NANDINI SINGH</span>
             </p>
-            <p className="text-base md:text-lg opacity-90 mb-4">
-              inke slay karne ka andaaz hi kuch alag hai — ye bas hasti hai,
-              hasti hai aur sirf hasti hai, aur khush rehti hai.
+            <p className="text-base md:text-lg mb-4">
+              INKE SLAY KARNE KA ANDAJ HI KUCH ALG HAI <br />
+              YE BAS HASTI HAI , HASTI HAI <br />
+              AUR SIRF HASTI HAI AND <br />
+              KHUSH RAHTI HAI
             </p>
-            <p className="text-base md:text-lg opacity-90 mb-4">
-              ye to ho gaya <em>miss baddie</em> ka chota sa intro ✨
+            <p className="text-base md:text-lg mb-4">
+              YE TO HO GAYA <em>MISS BADDIE</em> KA <br />
+              CHOTA SA INTRO ✨
             </p>
-            <p className="text-base md:text-lg opacity-90">
-              aaj hum sab ki pyaari baddie jii ka birthday hai —
-              dekhte hai aage kya kya milta hai... <span className="text-2xl">😁</span>
+            <p className="text-base md:text-lg">
+              AAJ HAM SAB KI PYARI BADDIE JII KA BIRTHDAY HAI, DEKHTE HAI <br />
+              AAGE KYA KYA MILTA HAI ... <span className="text-2xl">😁</span>
             </p>
           </motion.div>
 
