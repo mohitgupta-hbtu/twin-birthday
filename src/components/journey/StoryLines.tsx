@@ -2,7 +2,7 @@ import { motion } from "motion/react";
 
 export default function StoryLines({ lines }: { lines: string[] }) {
   return (
-    <div className="space-y-3">
+    <div className="space-y-1.5">
       {lines.map((l, i) => (
         <motion.p
           key={i}

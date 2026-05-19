@@ -26,12 +26,12 @@ function SectionTitle({ chapter, title }: { chapter: string; title: string }) {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 1 }}
-      className="text-center pt-24 md:pt-32"
+      className="text-center pt-12 md:pt-16"
     >
       <p className="font-display italic tracking-[0.4em] text-xs md:text-sm text-[oklch(0.55_0.22_295)]">
         ✦ {chapter} ✦
       </p>
-      <h2 className="puffy-text font-black text-5xl md:text-7xl mt-4">{title}</h2>
+      <h2 className="puffy-text font-black text-4xl md:text-5xl mt-2">{title}</h2>
     </motion.div>
   );
 }
@@ -85,7 +85,7 @@ function JourneyPage() {
       </StoryBlock>
 
       {/* soft connector */}
-      <div className="h-32 md:h-48 relative">
+      <div className="h-16 md:h-24 relative">
         <motion.div
           initial={{ scaleX: 0, opacity: 0 }}
           whileInView={{ scaleX: 1, opacity: 1 }}

@@ -23,7 +23,7 @@ export default function StoryBlock({ image, imageAlt, side, children, tilt = -3 
   const Img = (
     <motion.div
       style={{ y: imgY }}
-      className={`relative mx-auto w-full max-w-[520px] ${side === "left" ? "lg:mr-auto" : "lg:ml-auto"}`}
+      className={`relative mx-auto w-full max-w-[380px] ${side === "left" ? "lg:mr-auto" : "lg:ml-auto"}`}
     >
       <div className="absolute -inset-6 rounded-[2.5rem] bg-white/30 backdrop-blur-xl shadow-2xl" style={{ transform: `rotate(${tilt}deg)` }} />
       <motion.div
@@ -51,7 +51,7 @@ export default function StoryBlock({ image, imageAlt, side, children, tilt = -3 
   const Text = (
     <motion.div
       style={{ y, opacity }}
-      className="relative font-cassandra text-[oklch(0.32_0.18_295)] story-glow text-2xl md:text-3xl lg:text-[2.1rem] leading-[1.5] tracking-wide max-w-xl mx-auto lg:mx-0"
+      className="relative font-cassandra text-[oklch(0.32_0.18_295)] story-glow text-lg md:text-xl lg:text-2xl leading-relaxed tracking-wide max-w-xl mx-auto lg:mx-0"
     >
       <div className="absolute -inset-8 rounded-[2rem] bg-white/20 backdrop-blur-md -z-10" />
       {children}
@@ -59,7 +59,7 @@ export default function StoryBlock({ image, imageAlt, side, children, tilt = -3 
   );
 
   return (
-    <div ref={ref} className="grid lg:grid-cols-2 gap-14 lg:gap-20 items-center px-6 md:px-14 py-24 lg:py-32">
+    <div ref={ref} className="grid lg:grid-cols-2 gap-10 lg:gap-14 items-center px-6 md:px-14 py-16 lg:py-20">
       {side === "left" ? (
         <>
           {Img}
