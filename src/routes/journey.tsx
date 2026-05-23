@@ -1,13 +1,11 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion } from "motion/react";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, Images, Sparkles } from "lucide-react";
 import AmbientBackground from "@/components/journey/AmbientBackground";
 import StoryBlock from "@/components/journey/StoryBlock";
 import StoryLines from "@/components/journey/StoryLines";
 import library from "@/assets/library.png";
 import twinMagic from "@/assets/twin-magic.png";
-import placeholder1 from "@/assets/new-1.jpg";
-import placeholder2 from "@/assets/fairy-image.jpeg";
 
 export const Route = createFileRoute("/journey")({
   component: JourneyPage,
@@ -84,41 +82,24 @@ function JourneyPage() {
         />
       </StoryBlock>
 
-      {/* soft connector */}
-      <div className="h-16 md:h-24 relative">
-        <motion.div
-          initial={{ scaleX: 0, opacity: 0 }}
-          whileInView={{ scaleX: 1, opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 1.4, ease: "easeOut" }}
-          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 h-px w-40 bg-gradient-to-r from-transparent via-[oklch(0.55_0.22_295)] to-transparent"
-        />
-      </div>
-
-      {/* PAGE 2 — Secret Spot */}
-      <SectionTitle chapter="CHAPTER TWO" title="SECRET SPOT" />
-
-      <StoryBlock image={placeholder1} imageAlt="Secret spot memory" side="left" tilt={-3}>
-        <StoryLines
-          lines={[
-            "Yahi tha hamara secret spot...",
-            "jaha pe hamne bahut si ajeeb",
-            "par yaadgaar baatein ki.",
-            "(— editable later ✎)",
-          ]}
-        />
-      </StoryBlock>
-
-      <StoryBlock image={placeholder2} imageAlt="Another memory" side="right" tilt={4}>
-        <StoryLines
-          lines={[
-            "Aur kuch yaadein aisi bhi thi,",
-            "jo sirf hum dono ke beech reh gayi —",
-            "hawa mai, hasi mai, chai ke cup mai.",
-            "(— add your story here ✦)",
-          ]}
-        />
-      </StoryBlock>
+      {/* Gallery button — goes to /gallery route */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.8, delay: 0.2 }}
+        className="flex justify-center py-12 md:py-16"
+      >
+        <Link
+          to="/gallery"
+          className="group relative btn-bday text-white font-semibold px-10 py-4 rounded-full flex items-center gap-3 transition-all duration-300 hover:scale-105 hover:-translate-y-1 hover:shadow-[0_15px_40px_oklch(0.55_0.22_295/0.5)]"
+        >
+          <span className="absolute inset-0 rounded-full bg-white/20 opacity-0 group-hover:opacity-100 transition" />
+          <Images className="relative w-5 h-5" />
+          <span className="relative tracking-wide">VIEW GALLERY</span>
+          <Sparkles className="absolute -top-2 -right-2 w-5 h-5 text-[oklch(0.95_0.05_80)] opacity-0 group-hover:opacity-100 transition animate-pulse" />
+        </Link>
+      </motion.div>
 
       <div className="text-center pb-32 pt-10">
         <motion.p
