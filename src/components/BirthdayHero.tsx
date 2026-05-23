@@ -107,12 +107,7 @@ export default function BirthdayHero() {
           <Sparkles className="w-5 h-5" />
           twin.day
         </div>
-        <div className="hidden md:flex items-center gap-8 text-sm font-medium text-[oklch(0.4_0.15_290)]">
-          <a className="hover:text-[oklch(0.55_0.22_295)] transition">HOME</a>
-          <a className="hover:text-[oklch(0.55_0.22_295)] transition">PHOTOS</a>
-          <a className="hover:text-[oklch(0.55_0.22_295)] transition">WISHES</a>
-          <a className="hover:text-[oklch(0.55_0.22_295)] transition">CAKE</a>
-        </div>
+
       </nav>
 
       {/* content */}

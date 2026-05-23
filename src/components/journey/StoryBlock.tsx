@@ -23,7 +23,7 @@ export default function StoryBlock({ image, imageAlt, side, children, tilt = -3 
   const Img = (
     <motion.div
       style={{ y: imgY }}
-      className={`relative mx-auto w-full max-w-[380px] ${side === "left" ? "lg:mr-auto" : "lg:ml-auto"}`}
+      className={`relative mx-auto w-full max-w-[570px] ${side === "left" ? "lg:mr-auto" : "lg:ml-auto"}`}
     >
       <div className="absolute -inset-6 rounded-[2.5rem] bg-white/30 backdrop-blur-xl shadow-2xl" style={{ transform: `rotate(${tilt}deg)` }} />
       <motion.div

@@ -100,18 +100,6 @@ function JourneyPage() {
           <Sparkles className="absolute -top-2 -right-2 w-5 h-5 text-[oklch(0.95_0.05_80)] opacity-0 group-hover:opacity-100 transition animate-pulse" />
         </Link>
       </motion.div>
-
-      <div className="text-center pb-32 pt-10">
-        <motion.p
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 1.2 }}
-          className="font-cassandra text-3xl md:text-4xl text-gradient-bday"
-        >
-          ... to be continued ✨
-        </motion.p>
-      </div>
     </main>
   );
 }

@@ -9,8 +9,8 @@ import img1 from "@/assets/gallery-top-1.jpg";
 import img2 from "@/assets/gallery-top-2.jpg";
 import img3 from "@/assets/gallery-3.jpg";
 import img4 from "@/assets/gallery-4.jpg";
-import img5 from "@/assets/new-4.png";
-import img6 from "@/assets/fairy-image.jpeg";
+import img5 from "@/assets/gallery-new-5.jpeg";
+import img6 from "@/assets/gallery-new-6.jpeg";
 
 const images = [
   { src: img1, alt: "Memory 1", delay: 0.1, tilt: -4 },
