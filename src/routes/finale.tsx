@@ -1,7 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion } from "motion/react";
 import { ArrowLeft, Heart, Sparkles, Star } from "lucide-react";
-import galleryBg from "@/assets/gallery-bg.jpg";
 import nickBg from "@/assets/nick-bg.png";
 import hb from "@/assets/hb.jpeg";
 
