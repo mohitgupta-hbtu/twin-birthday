@@ -1,8 +1,9 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion, AnimatePresence } from "motion/react";
-import { useState } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
 import { ArrowLeft, ArrowRight, Heart, X, Sparkles } from "lucide-react";
 import galleryBg from "@/assets/gallery-bg.jpg";
+import tiniImg from "@/assets/tini.jpeg";
 
 // Gallery Images
 import img1 from "@/assets/gallery-top-1.jpg";
@@ -31,8 +32,67 @@ export const Route = createFileRoute("/gallery")({
   }),
 });
 
+const YT_ID = "g1uEqR5eFMo";
+
 function GalleryPage() {
   const [selected, setSelected] = useState<number | null>(null);
+  const [playing, setPlaying] = useState(true);
+  const playerRef = useRef<any>(null);
+
+  useEffect(() => {
+    function initPlayer() {
+      if (!document.getElementById("youtube-player-hidden")) return;
+      const p = new (window as any).YT.Player("youtube-player-hidden", {
+        height: "0",
+        width: "0",
+        videoId: YT_ID,
+        playerVars: {
+          autoplay: 1,
+          loop: 1,
+          playlist: YT_ID,
+          controls: 0,
+          disablekb: 1,
+          playsinline: 1,
+        },
+        events: {
+          onReady: (e: any) => {
+            e.target.setVolume(100);
+            e.target.playVideo();
+            playerRef.current = e.target;
+          },
+          onStateChange: (e: any) => {
+            setPlaying(e.data === (window as any).YT.PlayerState.PLAYING);
+          },
+        },
+      });
+    }
+
+    const scriptId = "youtube-iframe-api";
+    if (!document.getElementById(scriptId)) {
+      const tag = document.createElement("script");
+      tag.src = "https://www.youtube.com/iframe_api";
+      tag.id = scriptId;
+      document.head.appendChild(tag);
+    }
+
+    if ((window as any).YT?.Player) {
+      initPlayer();
+    } else {
+      (window as any).onYouTubeIframeAPIReady = initPlayer;
+    }
+
+    return () => {
+      playerRef.current?.destroy();
+      playerRef.current = null;
+    };
+  }, []);
+
+  const togglePlay = useCallback(() => {
+    const p = playerRef.current;
+    if (!p) return;
+    if (playing) p.pauseVideo();
+    else p.playVideo();
+  }, [playing]);
 
   return (
     <main className="relative font-body min-h-screen pb-32 overflow-hidden">
@@ -201,6 +261,25 @@ function GalleryPage() {
           <Sparkles className="absolute -top-2 -right-2 w-5 h-5 text-[oklch(0.95_0.05_80)] opacity-0 group-hover:opacity-100 transition animate-pulse" />
         </Link>
       </motion.div>
+
+      {/* Hidden YouTube player for background audio */}
+      <div id="youtube-player-hidden" />
+
+      {/* Floating Music Toggle Button */}
+      <button
+        onClick={togglePlay}
+        className="fixed bottom-6 right-6 z-40 w-24 h-24 rounded-full shadow-[0_8px_30px_oklch(0.55_0.22_295/0.5)] flex items-center justify-center overflow-hidden hover:shadow-[0_8px_40px_oklch(0.55_0.22_295/0.7)] hover:scale-110 active:scale-90 transition-all cursor-pointer"
+      >
+        <img
+          src={tiniImg}
+          alt="Music"
+          className="w-full h-full object-cover"
+          style={{
+            animation: "spin 3s linear infinite",
+            animationPlayState: playing ? "running" : "paused",
+          }}
+        />
+      </button>
     </main>
   );
 }

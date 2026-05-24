@@ -6,6 +6,7 @@ import img1 from "@/assets/new-1.jpg";
 import img2 from "@/assets/new-1-wings.jpg";
 import img3 from "@/assets/fairy-image.jpeg";
 import img4 from "@/assets/new-4.png";
+import logoImg from "@/assets/logo.jpeg";
 
 const images = [img1, img2, img3, img4];
 
@@ -103,9 +104,9 @@ export default function BirthdayHero() {
 
       {/* nav */}
       <nav className="relative z-20 flex items-center justify-between px-6 md:px-14 py-6">
-        <div className="flex items-center gap-2 text-[oklch(0.45_0.24_305)] font-script text-2xl">
-          <Sparkles className="w-5 h-5" />
-          twin.day
+        <div className="flex items-center gap-2">
+          <img src={logoImg} alt="Twin-day" className="h-10 w-auto" />
+          <span className="text-[oklch(0.45_0.24_305)] font-script text-2xl">twin.day</span>
         </div>
 
       </nav>
