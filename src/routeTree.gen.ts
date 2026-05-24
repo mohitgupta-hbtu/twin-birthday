@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as JourneyRouteImport } from './routes/journey'
 import { Route as GalleryRouteImport } from './routes/gallery'
+import { Route as FinaleRouteImport } from './routes/finale'
 import { Route as IndexRouteImport } from './routes/index'
 
 const JourneyRoute = JourneyRouteImport.update({
@@ -23,6 +24,11 @@ const GalleryRoute = GalleryRouteImport.update({
   path: '/gallery',
   getParentRoute: () => rootRouteImport,
 } as any)
+const FinaleRoute = FinaleRouteImport.update({
+  id: '/finale',
+  path: '/finale',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -31,30 +37,34 @@ const IndexRoute = IndexRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/finale': typeof FinaleRoute
   '/gallery': typeof GalleryRoute
   '/journey': typeof JourneyRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/finale': typeof FinaleRoute
   '/gallery': typeof GalleryRoute
   '/journey': typeof JourneyRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/finale': typeof FinaleRoute
   '/gallery': typeof GalleryRoute
   '/journey': typeof JourneyRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/gallery' | '/journey'
+  fullPaths: '/' | '/finale' | '/gallery' | '/journey'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/gallery' | '/journey'
-  id: '__root__' | '/' | '/gallery' | '/journey'
+  to: '/' | '/finale' | '/gallery' | '/journey'
+  id: '__root__' | '/' | '/finale' | '/gallery' | '/journey'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  FinaleRoute: typeof FinaleRoute
   GalleryRoute: typeof GalleryRoute
   JourneyRoute: typeof JourneyRoute
 }
@@ -75,6 +85,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof GalleryRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/finale': {
+      id: '/finale'
+      path: '/finale'
+      fullPath: '/finale'
+      preLoaderRoute: typeof FinaleRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -87,6 +104,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  FinaleRoute: FinaleRoute,
   GalleryRoute: GalleryRoute,
   JourneyRoute: JourneyRoute,
 }

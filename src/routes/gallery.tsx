@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion, AnimatePresence } from "motion/react";
 import { useState } from "react";
-import { ArrowLeft, Heart, X, Sparkles } from "lucide-react";
+import { ArrowLeft, ArrowRight, Heart, X, Sparkles } from "lucide-react";
 import galleryBg from "@/assets/gallery-bg.jpg";
 
 // Gallery Images
@@ -181,6 +181,26 @@ function GalleryPage() {
           </motion.div>
         )}
       </AnimatePresence>
+
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.8, delay: 0.2 }}
+        className="flex justify-center py-12 md:py-16"
+      >
+        <Link
+          to="/finale"
+          className="group relative btn-bday text-white font-semibold px-10 py-4 rounded-full flex items-center gap-3 transition-all duration-300 hover:scale-105 hover:-translate-y-1 hover:shadow-[0_15px_40px_oklch(0.55_0.22_295/0.5)]"
+        >
+          <span className="absolute inset-0 rounded-full bg-white/20 opacity-0 group-hover:opacity-100 transition" />
+          <span className="relative tracking-wide">NEXT</span>
+          <span className="relative w-9 h-9 rounded-full bg-white/25 backdrop-blur flex items-center justify-center group-hover:translate-x-1 transition-transform">
+            <ArrowRight className="w-4 h-4" />
+          </span>
+          <Sparkles className="absolute -top-2 -right-2 w-5 h-5 text-[oklch(0.95_0.05_80)] opacity-0 group-hover:opacity-100 transition animate-pulse" />
+        </Link>
+      </motion.div>
     </main>
   );
 }

@@ -88,7 +88,7 @@ function JourneyPage() {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.8, delay: 0.2 }}
-        className="flex justify-center py-12 md:py-16"
+        className="flex justify-center gap-6 py-12 md:py-16"
       >
         <Link
           to="/gallery"
